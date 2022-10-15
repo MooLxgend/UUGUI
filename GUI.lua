@@ -634,14 +634,14 @@ local function WNAOR_fake_script()
 			for v23, v24 in pairs(u3) do
 				if v24.MinLevel <= v22 and v22 - 0.1 < v24.MinLevel then
 					l__Parent__1.ReachedTier:Play();
+					for v25, v26 in pairs(v13) do
+					v26.Position = UDim2.new(0, 0, v26.Position.Y.Scale + 0.05, 0);
+					end;
 				else
 					for v25, v26 in pairs(v13) do
-					v26.Position = UDim2.new(0, 0, v26.Position.Y.Scale + 0.15, 0);
+					v26.Position = UDim2.new(0, 0, v26.Position.Y.Scale + 0.2, 0);
 					end;
 				end;
-			end;
-			for v25, v26 in pairs(v13) do
-				v26.Position = UDim2.new(0, 0, v26.Position.Y.Scale + 0.05, 0);
 			end;
 			l__Rerolling__2.Ability.TextLabel.Text = decimalformat(math.floor(v22 * 10 + 0.5) / 10);
 			game:GetService("RunService").Heartbeat:wait();
