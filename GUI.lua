@@ -630,17 +630,17 @@ local function WNAOR_fake_script()
 				end;
 			end;
 			for v21 = 1, v17, 0.1 do
-				local v22 = math.min(v21, v17);
-				for v23, v24 in pairs(u3) do
-					if v24.MinLevel <= v22 and v22 - 0.1 < v24.MinLevel then
-						l__Parent__1.ReachedTier:Play();
-					end;
+			local v22 = math.min(v21, v17);
+			for v23, v24 in pairs(u3) do
+				if v24.MinLevel <= v22 and v22 - 0.025 < v24.MinLevel then
+					l__Parent__1.ReachedTier:Play();
 				end;
-				for v25, v26 in pairs(v13) do
-					v26.Position = UDim2.new(0, 0, v26.Position.Y.Scale + 0.125, 0);
-				end;
-				l__Rerolling__2.Ability.TextLabel.Text = decimalformat(math.floor(v22 * 10 + 0.5) / 10);
-				game:GetService("RunService").Heartbeat:wait();
+			end;
+			for v25, v26 in pairs(v13) do
+				v26.Position = UDim2.new(0, 0, v26.Position.Y.Scale + 0.2, 0);
+			end;
+			l__Rerolling__2.Ability.TextLabel.Text = decimalformat(math.floor(v22 * 10 + 0.5) / 10);
+			game:GetService("RunService").Heartbeat:wait();
 			end;
 			l__Rerolling__2.Ability.TextLabel.TextColor3 = v18;
 			l__Rerolling__2.Ability.ImageColor3 = v18;
