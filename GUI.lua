@@ -637,7 +637,11 @@ local function WNAOR_fake_script()
 					end;
 				end;
 				for v25, v26 in pairs(v13) do
+					if v21 ~= v17 then
 					v26.Position = UDim2.new(0, 0, v26.Position.Y.Scale + 0.2, 0);
+					else
+					v26.Position = UDim2.new(0, 0, v26.Position.Y.Scale + 0.06, 0);
+					end
 				end;
 				l__Rerolling__2.Ability.TextLabel.Text = decimalformat(math.floor(v22 * 10 + 0.5) / 10);
 				game:GetService("RunService").Heartbeat:wait();
