@@ -645,7 +645,7 @@ local function WNAOR_fake_script()
 			l__Rerolling__2.Ability.TextLabel.TextColor3 = v18;
 			l__Rerolling__2.Ability.ImageColor3 = v18;
 			l__Parent__1.OnTier:Play();
-			wait(.5);
+			wait(.1);
 			l__Rerolling__2.Ability.TextLabel.Text = decimalformat(math.floor(v17 * 10 + 0.5) / 10);
 			for v27 = v17, p4, 0.025 do
 				for v28, v29 in pairs(v13) do
@@ -655,7 +655,7 @@ local function WNAOR_fake_script()
 				game:GetService("RunService").Heartbeat:wait();
 			end;
 			l__Parent__1.Finished:Play();
-			wait(0.25);
+			wait(0.5);
 	
 			local v30 = askquestion("Switch Ability", "Do you want to change your ability to " .. p3 .. " (" .. decimalformat(p4) .. ")?");
 			if v30 and p4 < u1.Potential then
