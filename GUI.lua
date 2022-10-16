@@ -428,7 +428,7 @@ local function WNAOR_fake_script()
 				local quest = menu:FindFirstChild("Quest").TextBox.Text
 				if u1.Quest ~= nil then
 					local Completion = true
-					for name, value in pairs(u1.Quest.Objectives) do 
+					for name, value in pairs(u1.Quest) do 
 						for v3253, v3254 in pairs(Info.Quests[name].Objectives) do
 							if u1.Quest.Objectives[v3253] < v3254 then
 								Completion = false
