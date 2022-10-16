@@ -425,14 +425,11 @@ local function WNAOR_fake_script()
 	local Questing = coroutine.wrap(function()
 		while wait() do
 			if menu:WaitForChild("Quest").AutoQuest.TextColor3 == Color3.new(0.75, 1, 0.75) then
-				local quest = menu:FindFirstChild("Quest").TextBox.Text
 				if u1.Quest ~= nil then
 					local Completion = true
-					for name, value in pairs(u1.Quest) do 
-						for v3253, v3254 in pairs(Info.Quests[name].Objectives) do
-							if u1.Quest.Objectives[v3253] < v3254 then
-								Completion = false
-							end
+					for v3253, v3254 in pairs(Info.Quests[u1.Quest.Name].Objectives) do
+						if u1.Quest.Objectives[v3253] < v3254 then
+							Completion = false
 						end
 					end
 					if Completion == true then
