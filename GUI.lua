@@ -428,17 +428,19 @@ local function WNAOR_fake_script()
 				local quest = menu:FindFirstChild("Quest").TextBox.Text
 				if u1.Quest ~= nil then
 					local Completion = true
-					for v3253, v3254 in pairs(Info.Quests[quest].Objectives) do
-						if u1.Quest.Objectives[v3253] < v3254 then
-							Completion = false
+					for name, value in pairs(u1.Quest.Objectives) do 
+						for v3253, v3254 in pairs(Info.Quests[name].Objectives) do
+							if u1.Quest.Objectives[v3253] < v3254 then
+								Completion = false
+							end
 						end
 					end
 					if Completion == true then
 						game.ReplicatedStorage.TakeQuest:FireServer("Completed")
-						game.ReplicatedStorage.TakeQuest:FireServer(quest)
+						game.ReplicatedStorage.TakeQuest:FireServer(menu:FindFirstChild("Quest").TextBox.Text)
 					end
 				else 
-					game.ReplicatedStorage.TakeQuest:FireServer(quest)
+					game.ReplicatedStorage.TakeQuest:FireServer(menu:FindFirstChild("Quest").TextBox.Text)
 				end
 			end
 		end
@@ -637,7 +639,7 @@ local function WNAOR_fake_script()
 					end;
 				end;
 				for v25, v26 in pairs(v13) do
-					if v21 ~= v17 then
+					if v21 ~= v17-0.1 then
 					v26.Position = UDim2.new(0, 0, v26.Position.Y.Scale + 0.2, 0);
 					else
 					v26.Position = UDim2.new(0, 0, v26.Position.Y.Scale + 0.06, 0);
