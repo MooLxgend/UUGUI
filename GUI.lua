@@ -284,7 +284,61 @@ local function WNAOR_fake_script()
 	local envReroll = getsenv(l__Parent__1.Reroll)
 	local decimalformat = envReroll.decimalformat
 	local askquestion = envReroll.askquestion
-	
+
+
+	local u3 = { {
+		Name = "Low Tier", 
+		MinLevel = 1, 
+		Color = Color3.new(1, 0.8, 0.5)
+	}, {
+		Name = "Mid-Tier", 
+		MinLevel = 2, 
+		Color = Color3.new(1, 1, 0.7)
+	}, {
+		Name = "Elite Tier", 
+		MinLevel = 3.5, 
+		Color = Color3.new(1, 0.5, 0)
+	}, {
+		Name = "High Tier", 
+		MinLevel = 5, 
+		Color = Color3.new(1, 0.8, 1)
+	}, {
+		Name = "Low God Tier", 
+		MinLevel = 6, 
+		Color = Color3.fromRGB(204, 165, 255)
+	}, {
+		Name = "God Tier", 
+		MinLevel = 6.5, 
+		Color = Color3.fromRGB(204, 165, 255)
+	}, {
+		Name = "High God Tier", 
+		MinLevel = 7, 
+		Color = Color3.fromRGB(204, 165, 255)
+	}, {
+		Name = "Low Mythical Tier", 
+		MinLevel = 7.5, 
+		Color = Color3.fromRGB(255, 0, 0)
+	}, {
+		Name = "Mythical Tier", 
+		MinLevel = 8, 
+		Color = Color3.fromRGB(255, 0, 0)
+	}, {
+		Name = "High Mythical Tier", 
+		MinLevel = 8.5, 
+		Color = Color3.fromRGB(255, 0, 0)
+	}, {
+		Name = "Exodia Tier", 
+		MinLevel = 9, 
+		Color = Color3.fromRGB(255, 255, 0)
+	}, {
+		Name = "High Exodia Tier", 
+		MinLevel = 9.5, 
+		Color = Color3.fromRGB(255, 255, 0)
+	}, {
+		Name = "CHADDED", 
+		MinLevel = 10, 
+		Color = Color3.fromRGB(255, 255, 255)
+	} };
 	
 	local Info = require(game:GetService("ReplicatedStorage"):WaitForChild("Info"))
 	local Quest = Info.Quests
@@ -566,7 +620,7 @@ local function WNAOR_fake_script()
 			l__Prompt__2.Visible = false;
 			l__Rerolling__2.Visible = true;
 			local v13 = {};
-			for v14, v15 in pairs(envReroll.u3) do
+			for v14, v15 in pairs(u3) do
 				local v16 = game.Players.LocalPlayer.PlayerGui:WaitForChild("Reroll"):WaitForChild("Reroll").TierLine:Clone();
 				v16.BackgroundColor3 = v15.Color;
 				v16.TextLabel.TextColor3 = v15.Color;
@@ -577,8 +631,8 @@ local function WNAOR_fake_script()
 			end;
 			local v17 = p4;
 			local v18 = nil;
-			for v19 = #(envReroll.u3), 1, -1 do
-				local v20 = envReroll.u3[v19];
+			for v19 = #u3, 1, -1 do
+				local v20 = u3[v19];
 				if v20.MinLevel <= p4 then
 					v17 = v20.MinLevel;
 					v18 = v20.Color;
@@ -587,7 +641,7 @@ local function WNAOR_fake_script()
 			end;
 			for v21 = 1, v17, 0.1 do
 				local v22 = math.min(v21, v17);
-				for v23, v24 in pairs(envReroll.u3) do
+				for v23, v24 in pairs(u3) do
 					if v24.MinLevel <= v22 and v22 - 0.1 < v24.MinLevel then
 						l__Parent__1.ReachedTier:Play();
 					end;
