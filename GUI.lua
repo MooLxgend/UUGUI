@@ -505,7 +505,7 @@ local function WNAOR_fake_script()
 			if v2 == "Number" then
 				local TextBox = Instance.new("TextBox")
 				local default = "7.5"
-				if v == "Ability"  then
+				if i == "Ability"  then
 					default = "1.0"
 				end
 				TextBox.Text = default
@@ -545,7 +545,7 @@ local function WNAOR_fake_script()
 				button.Name = v2
 				button.Text = v2
 				button.Font = "SourceSansBold"
-				if v2 == "AutoQuest" or (v == "Aura" and v2 == "Autobuy") then
+				if v2 == "AutoQuest" or (i == "Aura" and v2 == "Autobuy") then
 					button.TextColor3 = Color3.new(0.75, 1, 0.75)
 				else
 					button.TextColor3 = Color3.new(0.5, 0.25, 0.25)
