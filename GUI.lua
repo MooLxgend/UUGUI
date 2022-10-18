@@ -284,7 +284,6 @@ local function WNAOR_fake_script()
 	local envReroll = getsenv(l__Parent__1.Reroll)
 	local decimalformat = envReroll.decimalformat
 	local askquestion = envReroll.askquestion
-	local u3 = getupvalues(l__Parent__1.Reroll).u3
 	
 	
 	local Info = require(game:GetService("ReplicatedStorage"):WaitForChild("Info"))
@@ -567,7 +566,7 @@ local function WNAOR_fake_script()
 			l__Prompt__2.Visible = false;
 			l__Rerolling__2.Visible = true;
 			local v13 = {};
-			for v14, v15 in pairs(u3) do
+			for v14, v15 in pairs(envReroll.u3) do
 				local v16 = game.Players.LocalPlayer.PlayerGui:WaitForChild("Reroll"):WaitForChild("Reroll").TierLine:Clone();
 				v16.BackgroundColor3 = v15.Color;
 				v16.TextLabel.TextColor3 = v15.Color;
@@ -578,8 +577,8 @@ local function WNAOR_fake_script()
 			end;
 			local v17 = p4;
 			local v18 = nil;
-			for v19 = #u3, 1, -1 do
-				local v20 = u3[v19];
+			for v19 = #(envReroll.u3), 1, -1 do
+				local v20 = envReroll.u3[v19];
 				if v20.MinLevel <= p4 then
 					v17 = v20.MinLevel;
 					v18 = v20.Color;
@@ -588,7 +587,7 @@ local function WNAOR_fake_script()
 			end;
 			for v21 = 1, v17, 0.1 do
 				local v22 = math.min(v21, v17);
-				for v23, v24 in pairs(u3) do
+				for v23, v24 in pairs(envReroll.u3) do
 					if v24.MinLevel <= v22 and v22 - 0.1 < v24.MinLevel then
 						l__Parent__1.ReachedTier:Play();
 					end;
