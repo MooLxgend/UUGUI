@@ -278,10 +278,6 @@ local function WNAOR_fake_script()
 	local l__HttpService__6 = game:GetService("HttpService");
 	local l__Stats__7 = l__LocalPlayer__5:WaitForChild("Stats");
 	local u1 = l__HttpService__6:JSONDecode(l__Stats__7.Value);
-	l__Stats__7.Changed:Connect(function()
-		u1 = l__HttpService__6:JSONDecode(l__Stats__7.Value);
-		activationMain()
-	end);
 	
 	local l__Rerolling__2 = l__Parent__1:WaitForChild("Rerolling");
 	
@@ -459,7 +455,8 @@ local function WNAOR_fake_script()
 		end
 	end)
 	
-	local function activationMain()
+	l__Stats__7.Changed:Connect(function()
+		u1 = l__HttpService__6:JSONDecode(l__Stats__7.Value);
 		coroutine.resume(CombineFist)
 		coroutine.resume(CombineRelic)
 		coroutine.resume(Delete)
@@ -468,7 +465,7 @@ local function WNAOR_fake_script()
 		coroutine.resume(RerollRelic)
 		coroutine.resume(RerollAura)
 		coroutine.resume(Questing)
-	end
+	end);
 
 	for i, v in pairs(MenuTable) do
 		local frame = Instance.new("Frame")
