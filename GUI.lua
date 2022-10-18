@@ -318,9 +318,8 @@ local function WNAOR_fake_script()
 				end
 				game.ReplicatedStorage.UpgradeItem:InvokeServer("Fist", u129);
 			end
-			coroutine.yield()
 		end
-	end)
+	end)()
 	local CombineRelic = coroutine.wrap(function()
 		while wait() do
 			if menu:WaitForChild("Relic").AutoCombine.TextColor3 == Color3.new(0.75, 1, 0.75) then
@@ -349,9 +348,8 @@ local function WNAOR_fake_script()
 				end
 				game.ReplicatedStorage.UpgradeItem:InvokeServer("Relic", u129);
 			end
-			coroutine.yield()
 		end
-	end)
+	end)()
 	local AurasStorage = {};
 	local Delete = coroutine.wrap(function()
 		while wait() do
@@ -397,42 +395,37 @@ local function WNAOR_fake_script()
 					end;
 				end
 			end
-			coroutine.yield()
 		end
-	end)
+	end)()
 	
 	local RerollAbility = coroutine.wrap(function()
 		while wait() do
 			if menu:WaitForChild("Ability").AutoRoll.TextColor3 == Color3.new(0.75, 1, 0.75) and u1.Money >= 25000 then
 				game.ReplicatedStorage.Reroll:InvokeServer()
 			end
-			coroutine.yield()
 		end
-	end)
+	end)()
 	local RerollFist = coroutine.wrap(function()
 		while wait() do
 			if menu:WaitForChild("Fist").AutoBuy.TextColor3 == Color3.new(0.75, 1, 0.75) and u1.Money >= 35000 then
 				game.ReplicatedStorage.RollGear:InvokeServer("Fist")
 			end
-			coroutine.yield()
 		end
-	end)
+	end)()
 	local RerollRelic = coroutine.wrap(function()
 		while wait() do
 			if menu:WaitForChild("Relic").AutoBuy.TextColor3 == Color3.new(0.75, 1, 0.75) and u1.Money >= 50000 then
 				game.ReplicatedStorage.RollGear:InvokeServer("Relic")
 			end
-			coroutine.yield()
 		end
-	end)
+	end)()
 	local RerollAura = coroutine.wrap(function()
 		while wait() do
 			if menu:WaitForChild("Aura").AutoBuy.TextColor3 == Color3.new(0.75, 1, 0.75) and u1.Gold >= 100 then
 				game.ReplicatedStorage.RollGear:InvokeServer("Aura")
 			end
-			coroutine.yield()
 		end
-	end)
+	end)()
 	local Questing = coroutine.wrap(function()
 		while wait() do
 			if menu:WaitForChild("Quest").AutoQuest.TextColor3 == Color3.new(0.75, 1, 0.75) then
@@ -451,20 +444,11 @@ local function WNAOR_fake_script()
 					game.ReplicatedStorage.TakeQuest:FireServer(menu:FindFirstChild("Quest").TextBox.Text)
 				end
 			end
-			coroutine.yield()
 		end
-	end)
+	end)()
 	
 	l__Stats__7.Changed:Connect(function()
 		u1 = l__HttpService__6:JSONDecode(l__Stats__7.Value);
-		coroutine.resume(CombineFist)
-		coroutine.resume(CombineRelic)
-		coroutine.resume(Delete)
-		coroutine.resume(RerollAbility)
-		coroutine.resume(RerollFist)
-		coroutine.resume(RerollRelic)
-		coroutine.resume(RerollAura)
-		coroutine.resume(Questing)
 	end);
 
 	for i, v in pairs(MenuTable) do
