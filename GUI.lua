@@ -284,7 +284,8 @@ local function WNAOR_fake_script()
 	local envReroll = getsenv(l__Parent__1.Reroll)
 	local decimalformat = envReroll.decimalformat
 	local askquestion = envReroll.askquestion
-	local u3 = envReroll.u3
+	local u3 = getupvalues(l__Parent__1.Reroll).u3
+	
 	
 	local Info = require(game:GetService("ReplicatedStorage"):WaitForChild("Info"))
 	local Quest = Info.Quests
@@ -555,8 +556,14 @@ local function WNAOR_fake_script()
 	
 	
 	game.ReplicatedStorage.ClaimAbility.OnClientInvoke = function(p3, p4)
+	local rare = false
 		l__Rerolling__2.Folder:ClearAllChildren();
-		if p4 > tonumber(menu:FindFirstChild("Ability").TextBox.Text) or Info.Abilities[p3.Name].RelativeProbability then
+		for index, value in pairs(Info.Abilities[p3]) do
+			if index == "RelativeProbability" then
+				rare = true
+			end
+		end
+		if p4 > tonumber(menu:FindFirstChild("Ability").TextBox.Text) or rare == true then
 			l__Prompt__2.Visible = false;
 			l__Rerolling__2.Visible = true;
 			local v13 = {};
