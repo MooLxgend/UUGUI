@@ -280,7 +280,15 @@ local function WNAOR_fake_script()
 	local u1 = l__HttpService__6:JSONDecode(l__Stats__7.Value);
 	l__Stats__7.Changed:Connect(function()
 		u1 = l__HttpService__6:JSONDecode(l__Stats__7.Value);
+		activationMain()
 	end);
+	
+	local l__Rerolling__2 = l__Parent__1:WaitForChild("Rerolling");
+	
+	local envReroll = getsenv(l__Parent__1.Reroll)
+	local decimalformat = envReroll.decimalformat
+	local askquestion = envReroll.askquestion
+	local u3 = envReroll.u3
 	
 	local Info = require(game:GetService("ReplicatedStorage"):WaitForChild("Info"))
 	local Quest = Info.Quests
@@ -314,8 +322,9 @@ local function WNAOR_fake_script()
 				end
 				game.ReplicatedStorage.UpgradeItem:InvokeServer("Fist", u129);
 			end
+			coroutine.yield()
 		end
-	end)()
+	end)
 	local CombineRelic = coroutine.wrap(function()
 		while wait() do
 			if menu:WaitForChild("Relic").AutoCombine.TextColor3 == Color3.new(0.75, 1, 0.75) then
@@ -344,8 +353,9 @@ local function WNAOR_fake_script()
 				end
 				game.ReplicatedStorage.UpgradeItem:InvokeServer("Relic", u129);
 			end
+			coroutine.yield()
 		end
-	end)()
+	end)
 	local AurasStorage = {};
 	local Delete = coroutine.wrap(function()
 		while wait() do
@@ -391,37 +401,42 @@ local function WNAOR_fake_script()
 					end;
 				end
 			end
+			coroutine.yield()
 		end
-	end)()
+	end)
 	
 	local RerollAbility = coroutine.wrap(function()
 		while wait() do
 			if menu:WaitForChild("Ability").AutoRoll.TextColor3 == Color3.new(0.75, 1, 0.75) and u1.Money >= 25000 then
 				game.ReplicatedStorage.Reroll:InvokeServer()
 			end
+			coroutine.yield()
 		end
-	end)()
+	end)
 	local RerollFist = coroutine.wrap(function()
 		while wait() do
 			if menu:WaitForChild("Fist").AutoBuy.TextColor3 == Color3.new(0.75, 1, 0.75) and u1.Money >= 35000 then
 				game.ReplicatedStorage.RollGear:InvokeServer("Fist")
 			end
+			coroutine.yield()
 		end
-	end)()
+	end)
 	local RerollRelic = coroutine.wrap(function()
 		while wait() do
 			if menu:WaitForChild("Relic").AutoBuy.TextColor3 == Color3.new(0.75, 1, 0.75) and u1.Money >= 50000 then
 				game.ReplicatedStorage.RollGear:InvokeServer("Relic")
 			end
+			coroutine.yield()
 		end
-	end)()
+	end)
 	local RerollAura = coroutine.wrap(function()
 		while wait() do
 			if menu:WaitForChild("Aura").AutoBuy.TextColor3 == Color3.new(0.75, 1, 0.75) and u1.Gold >= 100 then
 				game.ReplicatedStorage.RollGear:InvokeServer("Aura")
 			end
+			coroutine.yield()
 		end
-	end)()
+	end)
 	local Questing = coroutine.wrap(function()
 		while wait() do
 			if menu:WaitForChild("Quest").AutoQuest.TextColor3 == Color3.new(0.75, 1, 0.75) then
@@ -440,9 +455,20 @@ local function WNAOR_fake_script()
 					game.ReplicatedStorage.TakeQuest:FireServer(menu:FindFirstChild("Quest").TextBox.Text)
 				end
 			end
+			coroutine.yield()
 		end
-	end)()
+	end)
 	
+	local function activationMain()
+		coroutine.resume(CombineFist)
+		coroutine.resume(CombineRelic)
+		coroutine.resume(Delete)
+		coroutine.resume(RerollAbility)
+		coroutine.resume(RerollFist)
+		coroutine.resume(RerollRelic)
+		coroutine.resume(RerollAura)
+		coroutine.resume(Questing)
+	end
 
 	for i, v in pairs(MenuTable) do
 		local frame = Instance.new("Frame")
@@ -478,7 +504,11 @@ local function WNAOR_fake_script()
 		for i2, v2 in ipairs(v) do
 			if v2 == "Number" then
 				local TextBox = Instance.new("TextBox")
-				TextBox.Text = "7.5"
+				local default = "7.5"
+				if v == "Ability"  then
+					default = "1.0"
+				end
+				TextBox.Text = default
 				TextBox.Font = "SourceSansBold"
 				TextBox.TextColor3 = Color3.new(0.75, 0.75, 0.75)
 				TextBox.TextScaled = true
@@ -490,9 +520,7 @@ local function WNAOR_fake_script()
 				TextBox.Parent = frame
 				TextBox.FocusLost:connect(function()
 					if tonumber(TextBox.Text) == nil then
-						TextBox.Text = 7.5
-					elseif tonumber(TextBox.Text) < 1.0 then
-						TextBox.Text = 1.0
+						TextBox.Text = default
 					end
 					TextBox.Text = decimalformat(tonumber(TextBox.Text))
 					l__Parent__1.Click:Play();
@@ -517,7 +545,7 @@ local function WNAOR_fake_script()
 				button.Name = v2
 				button.Text = v2
 				button.Font = "SourceSansBold"
-				if v2 == "AutoQuest" or v2 == "AutoHit" then
+				if v2 == "AutoQuest" or (v == "Aura" and v2 == "Autobuy") then
 					button.TextColor3 = Color3.new(0.75, 1, 0.75)
 				else
 					button.TextColor3 = Color3.new(0.5, 0.25, 0.25)
@@ -544,68 +572,10 @@ local function WNAOR_fake_script()
 	end
 	
 	
-	local envReroll = getsenv(l__Parent__1.Reroll)
-	local decimalformat = envReroll.decimalformat
-	local askquestion = envReroll.askquestion
-
 	
-	local l__Rerolling__2 = l__Parent__1:WaitForChild("Rerolling");
-	local u3 = { {
-		Name = "Low Tier", 
-		MinLevel = 1, 
-		Color = Color3.new(1, 0.8, 0.5)
-	}, {
-		Name = "Mid-Tier", 
-		MinLevel = 2, 
-		Color = Color3.new(1, 1, 0.7)
-	}, {
-		Name = "Elite Tier", 
-		MinLevel = 3.5, 
-		Color = Color3.new(1, 0.5, 0)
-	}, {
-		Name = "High Tier", 
-		MinLevel = 5, 
-		Color = Color3.new(1, 0.8, 1)
-	}, {
-		Name = "Low God Tier", 
-		MinLevel = 6, 
-		Color = Color3.fromRGB(204, 165, 255)
-	}, {
-		Name = "God Tier", 
-		MinLevel = 6.5, 
-		Color = Color3.fromRGB(204, 165, 255)
-	}, {
-		Name = "High God Tier", 
-		MinLevel = 7, 
-		Color = Color3.fromRGB(204, 165, 255)
-	}, {
-		Name = "Low Mythical Tier", 
-		MinLevel = 7.5, 
-		Color = Color3.fromRGB(255, 0, 0)
-	}, {
-		Name = "Mythical Tier", 
-		MinLevel = 8, 
-		Color = Color3.fromRGB(255, 0, 0)
-	}, {
-		Name = "High Mythical Tier", 
-		MinLevel = 8.5, 
-		Color = Color3.fromRGB(255, 0, 0)
-	}, {
-		Name = "Exodia Tier", 
-		MinLevel = 9, 
-		Color = Color3.fromRGB(255, 255, 0)
-	}, {
-		Name = "High Exodia Tier", 
-		MinLevel = 9.5, 
-		Color = Color3.fromRGB(255, 255, 0)
-	}, {
-		Name = "CHADDED", 
-		MinLevel = 10, 
-		Color = Color3.fromRGB(255, 255, 255)
-	} };
 	game.ReplicatedStorage.ClaimAbility.OnClientInvoke = function(p3, p4)
 		l__Rerolling__2.Folder:ClearAllChildren();
-		if p4 > tonumber(menu:FindFirstChild("Ability").TextBox.Text) or p3.RelativeProbability then
+		if p4 > tonumber(menu:FindFirstChild("Ability").TextBox.Text) or Info.Abilities[p3.Name].RelativeProbability then
 			l__Prompt__2.Visible = false;
 			l__Rerolling__2.Visible = true;
 			local v13 = {};
@@ -690,7 +660,7 @@ local function WNAOR_fake_script()
 			end;
 			return v30, envReroll._G.ToReplace;
 		else
-			l__Parent__1.Finished:Play();
+			l__Parent__1.ReachedTier:Play();
 			return false, false;
 		end
 	end;
