@@ -582,8 +582,10 @@ local questNum = 1
 					until enemy.Humanoid.Health <= 0
 					if enemy.Name == "Arlo" then
 					local barrier = false
+					local count = 0
 					repeat
-					wait()
+					count = count+1
+					wait(.1)
 						for _,v in pairs(workspace:GetChildren()) do
 							if v.Name == "Barrier" then
 								if v.Humanoid.MaxHealth <= 3000 then
@@ -593,7 +595,7 @@ local questNum = 1
 								end
 							end
 						end
-					until barrier == true
+					until barrier == true or count >= 100
 					end
 				end
 			end
