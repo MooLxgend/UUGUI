@@ -572,8 +572,8 @@ local questNum = 1
 						game.ReplicatedStorage.Punch:FireServer(enemy.Humanoid,6,0,"Heavy","DamageMultiplier: 2")
 					until enemy.Humanoid.Health <= 0
 					for i, v in pairs(workspace:GetChildren()) do
-						if v.Name == "Barrier" then
-							game.ReplicatedStorage.Punch:FireServer(v.Humanoid,6,0,"Heavy","DamageMultiplier: 2")
+						if i.Name == "Barrier" then
+							game.ReplicatedStorage.Punch:FireServer(i.Humanoid,6,0,"Heavy","DamageMultiplier: 2")
 						end
 					end
 				end
