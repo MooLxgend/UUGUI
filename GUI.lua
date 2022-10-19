@@ -283,6 +283,7 @@ local function WNAOR_fake_script()
 	local envReroll = getsenv(l__Parent__1.Reroll)
 	local decimalformat = envReroll.decimalformat
 	local askquestion = envReroll.askquestion
+	local abilityGet = envReroll.abilityGet
 
 
 	local u3= { {
