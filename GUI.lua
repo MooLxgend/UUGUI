@@ -566,17 +566,15 @@ local questNum = 1
 					end
 				end
 				if enemy then
-					wait(.1)
-					for i, v in pairs(workspace:GetChildren()) do
-						if v.Name == "Barrier" then
-							if v.Humanoid.MaxHealth < 3000 then
-								game.ReplicatedStorage.Punch:FireServer(v.Humanoid,6,0,"Heavy","DamageMultiplier: 2")
-							end
-						end
-					end
-					wait(.1)
 					repeat 
 						wait()
+						for i, v in pairs(workspace:GetChildren()) do
+							if v.Name == "Barrier" then
+								if v.Humanoid.MaxHealth < 3000 then
+									game.ReplicatedStorage.Punch:FireServer(v.Humanoid,6,0,"Heavy","DamageMultiplier: 2")
+								end
+							end
+						end
 						character.Humanoid.WalkToPoint = Vector3.new(enemy.HumanoidRootPart.Position.X,enemy.HumanoidRootPart.Position.Y,enemy.HumanoidRootPart.Position.Z)
 						game.ReplicatedStorage.Punch:FireServer(enemy.Humanoid,6,0,"Heavy","DamageMultiplier: 2")
 					until enemy.Humanoid.Health <= 0
