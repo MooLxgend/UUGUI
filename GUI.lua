@@ -6,6 +6,12 @@ local MenuTable = {
 	Quest = {"AutoQuest", "AutoAttack", "Type"},
 }
 
+for i, v in pairs(workspace:GetDescendants()) do
+	if v.Name == "Pillar" then 
+		v:Destroy()
+	end
+end
+
 
 local AutoGUIV3 = Instance.new("ScreenGui")
 local Frame = Instance.new("Frame")
@@ -284,6 +290,8 @@ local function WNAOR_fake_script()
 	local decimalformat = envReroll.decimalformat
 	local askquestion = envReroll.askquestion
 	local abilityGet = envReroll.abilityGet
+	local envMoveHandler = getsenv(l__LocalPlayer__5.PlayerScripts.MoveHandler)
+	local u69 = envMoveHandler.u69
 
 
 	local u3= { {
@@ -504,6 +512,8 @@ local function WNAOR_fake_script()
 			end
 		end
 	end)()
+
+local questNum = 1
 	local Questing = coroutine.wrap(function()
 		while wait() do
 			if menu:WaitForChild("Quest").AutoQuest.TextColor3 == Color3.new(0.75, 1, 0.75) then
@@ -517,6 +527,15 @@ local function WNAOR_fake_script()
 					if Completion == true then
 						game.ReplicatedStorage.TakeQuest:FireServer("Completed")
 						game.ReplicatedStorage.TakeQuest:FireServer(menu:FindFirstChild("Quest").TextBox.Text)
+						if menu:FindFirstChild("Quest").TextBox.Text == "Real Amgogus" then
+							questNum = 4
+						elseif menu:FindFirstChild("Quest").TextBox.Text == "Gaming Disorder" then
+							questNum = 3
+						elseif menu:FindFirstChild("Quest").TextBox.Text == "Kingdom" then
+							questNum = 2
+						else
+							questNum = 1
+						end
 					end
 				else 
 					game.ReplicatedStorage.TakeQuest:FireServer(menu:FindFirstChild("Quest").TextBox.Text)
@@ -524,7 +543,44 @@ local function WNAOR_fake_script()
 			end
 		end
 	end)()
-	
+	local AutoAttack = coroutine.wrap(function()
+		local NPCS = {
+			{Min = 7, Max = 9.9},
+			{Min = 4, Max = 6},
+			{Min = 2, Max = 3.4},
+			{Min = 1, Max = 1.9}
+		}
+		while wait() do
+			if menu:WaitForChild("Quest").AutoAttack.TextColor3 == Color3.new(0.75, 1, 0.75) then
+				local character = l__LocalPlayer__5.Character
+				local enemy
+				local distance = math.huge
+				for index, instance in pairs(workspace:GetChildren()) do	
+					if instance:FindFirstChild("Level") then
+						if (instance.Level.Value >= NPCS[questNum]["Min"] and instance.Level.Value <= NPCS[questNum]["Max"]) and instance.Humanoid.Health > 0 then
+							if (character.HumanoidRootPart.Position - instance.HumanoidRootPart.Position).Magnitude < distance then
+								distance = (character.HumanoidRootPart.Position - instance.HumanoidRootPart.Position).Magnitude
+								enemy = instance
+							end
+						end
+					end
+				end
+				if enemy then
+					repeat 
+						wait()
+						character.HumanoidRootPart.CFrame = CFrame.lookAt(character.HumanoidRootPart.Position, Vector3.new(enemy.HumanoidRootPart.Position.X, character.HumanoidRootPart.Position.Y, enemy.HumanoidRootPart.Position.Z))
+						character.Humanoid.WalkToPoint = Vector3.new(enemy.HumanoidRootPart.Position.X - (math.random()*3),enemy.HumanoidRootPart.Position.Y,enemy.HumanoidRootPart.Position.Z - (math.random()*3))
+						game.ReplicatedStorage.Punch:FireServer(enemy.Humanoid,6,0,"Heavy","DamageMultiplier: 2")
+					until enemy.Humanoid.Health <= 0
+					for i, v in pairs(workspace:GetChildren()) do
+						if v.Name == "Barrier" then
+							game.ReplicatedStorage.Punch:FireServer(v.Humanoid,6,0,"Heavy","DamageMultiplier: 2")
+						end
+					end
+				end
+			end
+		end
+	end)()
 	l__Stats__7.Changed:Connect(function()
 		u1 = l__HttpService__6:JSONDecode(l__Stats__7.Value);
 	end);
