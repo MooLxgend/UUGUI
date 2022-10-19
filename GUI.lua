@@ -3,8 +3,7 @@ local MenuTable = {
 	Aura = {"AutoBuy", "AutoDelete"},
 	Relic = {"AutoBuy", "AutoCombine", "Number"},
 	Fist = {"AutoBuy", "AutoCombine", "Number"},
-	Quest = {"AutoQuest", "Type"},
-	Boss = {"AutoHit"}
+	Quest = {"AutoQuest", "AutoAttack", "Type"},
 }
 
 
@@ -286,7 +285,7 @@ local function WNAOR_fake_script()
 	local askquestion = envReroll.askquestion
 
 
-	local u3 = { {
+	local u3= { {
 		Name = "Low Tier", 
 		MinLevel = 1, 
 		Color = Color3.new(1, 0.8, 0.5)
@@ -335,8 +334,28 @@ local function WNAOR_fake_script()
 		MinLevel = 9.5, 
 		Color = Color3.fromRGB(255, 255, 0)
 	}, {
-		Name = "CHADDED", 
+		Name = "Easy", 
 		MinLevel = 10, 
+		Color = Color3.fromRGB(255, 255, 255)
+	}, {
+		Name = "Yo?", 
+		MinLevel = 11, 
+		Color = Color3.fromRGB(255, 255, 255)
+	}, {
+		Name = "Nice.", 
+		MinLevel = 12, 
+		Color = Color3.fromRGB(255, 255, 255)
+	}, {
+		Name = "Sick!", 
+		MinLevel = 13, 
+		Color = Color3.fromRGB(255, 255, 255)
+	}, {
+		Name = "BRO?!", 
+		MinLevel = 14, 
+		Color = Color3.fromRGB(255, 255, 255)
+	}, {
+		Name = "WTH!!!", 
+		MinLevel = 15, 
 		Color = Color3.fromRGB(255, 255, 255)
 	} };
 	
@@ -382,7 +401,9 @@ local function WNAOR_fake_script()
 				local v644, v645, v646 = pairs(u1["Relics"]);
 				while wait() do
 					local v647, v648 = v644(v645, v646);
-					if not v647 then
+					if v647 then
+
+					else
 						break;
 					end;
 					v646 = v647;
@@ -391,7 +412,9 @@ local function WNAOR_fake_script()
 				local v659, v660, v661 = pairs(v643);
 				while wait() do
 					local v662, v663 = v659(v660, v661);
-					if not v662 then
+					if v662 then
+
+					else
 						break;
 					end;
 					v661 = v662;
@@ -616,7 +639,7 @@ local function WNAOR_fake_script()
 				rare = true
 			end
 		end
-		if p4 > tonumber(menu:FindFirstChild("Ability").TextBox.Text) or rare == true then
+		if p4 > tonumber(menu:FindFirstChild("Ability").TextBox.Text) or (rare == true and p4 > 10) then
 			l__Prompt__2.Visible = false;
 			l__Rerolling__2.Visible = true;
 			local v13 = {};
@@ -670,36 +693,9 @@ local function WNAOR_fake_script()
 			end;
 			l__Parent__1.Finished:Play();
 			wait(0.5);
-	
-			local v30 = askquestion("Switch Ability", "Do you want to change your ability to " .. p3 .. " (" .. decimalformat(p4) .. ")?");
-			if v30 and p4 < u1.Potential then
-				v30 = askquestion("Lower Potential", "" .. p3 .. " (" .. decimalformat(p4) .. ") Has a lower potential than your current ability, " .. u1.Ability .. " (" .. decimalformat(u1.Potential) .. "). Are you sure you want to change it?") and askquestion("Final Confirmation", "This action cannot be undone.");
-			end;
 			l__Rerolling__2.Visible = false;
-			local v31 = false
-			if v30 then
-				v31 = "Store your current ability? (Saying no will inherit your old level.)";
-			else
-				v31 = "Store this ability?";
-			end;
-			local v32 = askquestion("Store Ability", v31);
-			if not v32 or not (#u1.Stored >= 3) then
-				return v30, v32;
-			end;
-			envReroll._G.showStored();
-			envReroll._G.AbilityStorage.Visible = true;
-			envReroll._G.Replacing = true;
-			envReroll._G.ToReplace = "Replacing";	
-			while wait() do
-				wait();
-				if envReroll._G.ToReplace ~= "Replacing" then
-					break;
-				end;	
-			end;
-			if envReroll._G.ToReplace == "Cancelled" then
-				return v30, false;
-			end;
-			return v30, envReroll._G.ToReplace;
+			local v43, v44 = abilityGet(p4, p3);
+			return v43, v44;
 		else
 			l__Parent__1.ReachedTier:Play();
 			return false, false;
