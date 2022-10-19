@@ -569,7 +569,7 @@ local questNum = 1
 					wait(.1)
 					for i, v in pairs(workspace:GetChildren()) do
 						if v.Name == "Barrier" then
-							if v.Humanoid.Health < 3000 then
+							if v.Humanoid.MaxHealth < 3000 then
 								game.ReplicatedStorage.Punch:FireServer(v.Humanoid,6,0,"Heavy","DamageMultiplier: 2")
 							end
 						end
