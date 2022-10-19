@@ -568,7 +568,7 @@ local questNum = 1
 				if enemy then
 					repeat 
 						wait()
-						character.Humanoid.WalkToPoint = Vector3.new(enemy.HumanoidRootPart.Position.X),enemy.HumanoidRootPart.Position.Y,enemy.HumanoidRootPart.Position.Z)
+						character.Humanoid.WalkToPoint = Vector3.new(enemy.HumanoidRootPart.Position.X,enemy.HumanoidRootPart.Position.Y,enemy.HumanoidRootPart.Position.Z)
 						game.ReplicatedStorage.Punch:FireServer(enemy.Humanoid,6,0,"Heavy","DamageMultiplier: 2")
 					until enemy.Humanoid.Health <= 0
 					for i, v in pairs(workspace:GetChildren()) do
