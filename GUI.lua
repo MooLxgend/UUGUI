@@ -567,7 +567,7 @@ local questNum = 1
 				end
 				if enemy then
 					repeat 
-						wait(.1)
+						wait()
 						if (character.HumanoidRootPart.Position - enemy.HumanoidRootPart.Position).Magnitude < 5 then
 							game.ReplicatedStorage.Punch:FireServer(enemy.Humanoid,1,0,nil,"DamageMultiplier: 1")
 						end
