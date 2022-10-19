@@ -567,16 +567,25 @@ local questNum = 1
 				end
 				if enemy then
 					repeat 
-						wait(0.1)
-						for _,v in pairs(workspace:GetChildren()) do
-							if v.Name == "Barrier" then
-								if v.Humanoid.MaxHealth <= 3000 then
-									game.ReplicatedStorage.Punch:FireServer(v.Humanoid,6,0,"Heavy","DamageMultiplier: 2")
+						repeat
+							wait()
+							character.Humanoid.WalkToPoint = Vector3.new(enemy.HumanoidRootPart.Position.X,enemy.HumanoidRootPart.Position.Y,enemy.HumanoidRootPart.Position.Z)
+						until (character.HumanoidRootPart.Position - enemy.HumanoidRootPart.Position).Magnitude < 2
+						game.ReplicatedStorage.Punch:FireServer(v.Humanoid,6,0,"Heavy","DamageMultiplier: 2")
+						if enemy.Name == "Arlo" then
+							local barrierbreak = false
+							repeat
+								wait()
+								for _,v in pairs(workspace:GetChildren()) do
+									if v.Name == "Barrier" then
+										if v.Humanoid.MaxHealth <= 3000 then
+											barrierbreak = true
+											game.ReplicatedStorage.Punch:FireServer(v.Humanoid,6,0,"Heavy","DamageMultiplier: 2")
+										end
+									end
 								end
-							end
+							until barrierbreak == true
 						end
-						game.ReplicatedStorage.Punch:FireServer(enemy.Humanoid,1,0,nil,"DamageMultiplier: 1")
-						character.Humanoid.WalkToPoint = Vector3.new(enemy.HumanoidRootPart.Position.X,enemy.HumanoidRootPart.Position.Y,enemy.HumanoidRootPart.Position.Z)
 					until enemy.Humanoid.Health <= 0
 				end
 			end
