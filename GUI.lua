@@ -574,6 +574,7 @@ local questNum = 1
 							end
 						end
 					end
+					wait(.1)
 					repeat 
 						wait()
 						character.Humanoid.WalkToPoint = Vector3.new(enemy.HumanoidRootPart.Position.X,enemy.HumanoidRootPart.Position.Y,enemy.HumanoidRootPart.Position.Z)
