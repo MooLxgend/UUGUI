@@ -545,7 +545,7 @@ local questNum = 1
 	end)()
 	local AutoAttack = coroutine.wrap(function()
 		local NPCS = {
-			{Min = 7, Max = 9.9},
+			{Min = 7, Max = 7.9},
 			{Min = 4, Max = 6},
 			{Min = 2, Max = 3.4},
 			{Min = 1, Max = 1.9}
